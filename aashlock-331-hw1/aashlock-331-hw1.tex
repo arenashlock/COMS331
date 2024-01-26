@@ -1,0 +1,68 @@
+\documentclass[12pt]{article}
+\usepackage{epsf}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{tikz}
+
+\title{aashlock-331-hw1}
+\author{Aren Ashlock}
+\date{January 26, 2024}
+
+\setlength{\oddsidemargin}{-0.25in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\headheight}{0cm}
+\setlength{\headsep}{0cm}
+\setlength{\textheight}{10in}
+\setlength{\textwidth}{7in}
+\setlength{\topskip}{0cm}
+
+\begin{document}
+
+\noindent\textbf{ComS 331 \quad Spring 2024 \quad Name: Aren Ashlock}
+
+\begin{enumerate}
+
+%----------------------------------- Q1 DONE -----------------------------------
+
+\item Give a regular expression, simplified to the best of your abilities, for the language of \textbf{all} strings of $a$'s, $b$'s, and $c$'s where $a$ is never immediately followed by $b$.
+
+We start with the expression: $(a + b + c)^*$.\\
+However, we have to alter the term with '$a$' in it due to the problem description.\\
+Therefore, we get $a^*c$ since every $a$ is followed either by an $a$ or $c$.\\
+It's wrong to have $a^*c^*$ since we encompass consecutive $c$'s in the '$+ c$' term of the original expression.\\
+\textbf{Answer:} $(a^*c + b + c)^*$
+
+%-------------------------------------------------------------------------------
+
+%----------------------------------- Q2 DONE -----------------------------------
+
+\item Give a regular expression, simplified to the best of your abilities, for the language of \textbf{all} strings of $a$'s, $b$'s, and $c$'s that contain an even number of $b$'s.
+
+We start with the expression: $(a + b + c)^*$.\\
+However, we have to alter the term with '$b$' in it due to the problem description.\\
+Therefore, we get $b(a + c)^*b$ since every $b$ must come in pairs with some amount (or no amount) of $a$'s and $c$'s in between.\\
+\textbf{Answer:} $(a + b(a + c)^*b + c)^*$
+
+%-------------------------------------------------------------------------------
+
+%----------------------------------- Q3 DONE -----------------------------------
+
+\item Simplify (if possible) the expression $(a + b)^*(a + b + c)^*(a + b)^*$, then describe as concisely as you can in English the language it defines.
+
+\textbf{Simplified:} $(a + b + c)^*$\\
+\textbf{English:} The language of all strings of $a$'s, $b$'s, and $c$'s.
+
+%-------------------------------------------------------------------------------
+
+%----------------------------------- Q4 DONE -----------------------------------
+
+\item Simplify (if possible) the expression $(a + b)^*c^*(a + b)^*$, then describe as concisely as you can in English the language it defines.
+
+This expression \textbf{CANNOT} be simplified.\\
+\textbf{English:} The language of all strings of $a$'s, $b$'s, and $c$'s where all $c$'s are consecutive.
+
+%-------------------------------------------------------------------------------
+
+\end{enumerate}
+\end{document}
