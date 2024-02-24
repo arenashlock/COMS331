@@ -1,0 +1,56 @@
+\documentclass[12pt]{article}
+\usepackage{epsf}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usetikzlibrary{automata, positioning, arrows}
+
+\title{aashlock-331-hw5}
+\author{Aren Ashlock}
+\date{February 23, 2024}
+
+\setlength{\oddsidemargin}{-0.25in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\headheight}{0cm}
+\setlength{\headsep}{0cm}
+\setlength{\textheight}{10in}
+\setlength{\textwidth}{7in}
+\setlength{\topskip}{0cm}
+
+\begin{document}
+
+\noindent\textbf{ComS 331 \quad Spring 2024 \quad Name: Aren Ashlock}
+
+\begin{enumerate}
+
+%----------------------------------- Q1 DONE -----------------------------------
+
+\item Use the pumping lemma to prove that $L = \{ww : w \in \{0, 1\}^*\}$ is nonregular.
+
+\color{blue} If L is regular, then $\exists m$ such that $\forall x \in L, |x| \geq m, \exists u, v, t, |v| > 0, |uv| \leq m, x = uvt, \forall k \in \mathbb{N}, uv^kt \in L$.
+
+Let's choose $x = 0^m10^m1 \in L$. In this string, $v = 0^i$ for some $i > 0$.
+
+We see that when $k = 2$, $uv^2t = 0^{m + i}10^m1 \notin L$ since pumping results in a string that is not $ww$. Therefore, by contradiction, $L = \{ww : w \in \{0, 1\}^*\}$ is nonregular. \color{black}
+
+%-------------------------------------------------------------------------------
+
+%----------------------------------- Q2 DONE -----------------------------------
+
+\item Define a context-free grammar for the language $L = \{a^nb^mc^{n-m} : n \geq m\}$.
+
+\color{blue} $G = (\{S, B\}, \{a, b, c\}, S, \{S \rightarrow aSc|B|\epsilon, B \rightarrow aBb|\epsilon\})$ \color{black}
+
+%-------------------------------------------------------------------------------
+
+%----------------------------------- Q3 DONE -----------------------------------
+
+\item Define a context-free grammar for the language $L = \{a^nb^m : n \leq 3m\}$.
+
+\color{blue} $G = (\{S\}, \{a, b\}, S, \{S \rightarrow Sb|aSb|aaSb|aaaSb|\epsilon\})$ \color{black}
+
+%-------------------------------------------------------------------------------
+
+\end{enumerate}
+\end{document}
