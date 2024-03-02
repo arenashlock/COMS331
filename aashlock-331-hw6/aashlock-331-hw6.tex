@@ -1,0 +1,91 @@
+\documentclass[12pt]{article}
+\usepackage{epsf}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usetikzlibrary{automata, positioning, arrows}
+
+\title{aashlock-331-hw6}
+\author{Aren Ashlock}
+\date{March 1, 2024}
+
+\setlength{\oddsidemargin}{-0.25in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\headheight}{0cm}
+\setlength{\headsep}{0cm}
+\setlength{\textheight}{10in}
+\setlength{\textwidth}{7in}
+\setlength{\topskip}{0cm}
+
+\begin{document}
+
+\noindent\textbf{ComS 331 \quad Spring 2024 \quad Name: Aren Ashlock}
+
+\begin{enumerate}
+
+%----------------------------------- Q1 DONE -----------------------------------
+
+\item A \textit{fully parenthesized arithmetic expression} on the natural numbers is defined recursively as:
+
+    \begin{enumerate}[label=(\alph*)]
+        \item A natural number expressed in decimal notation (e.g., 0, 4, 357, but not 007).
+        \item $(\alpha + \beta)$ or $(\alpha * \beta)$, where $\alpha$ and $\beta$ are fully parenthesized arithmetic expressions.
+    \end{enumerate}
+
+Define a CFG that generates the following language over $\{0,1,...,9,(,),*,+,o,d,e,v,n\}$:
+
+\quad\quad $L = \{\alpha $\textit{ odd} : $\alpha$ is a fully parenthesized arithmetic expression with an odd value\}
+
+\quad\quad\quad $\cup$ $\{\alpha $\textit{ even} : $\alpha$ is a fully parenthesized arithmetic expression with an even value\}
+
+For example, "75 \textit{odd}", "((241 $*$ 2) + 40034) \textit{even}" are strings in the language (ignore the blank spaces in the strings, they are just there for clarity).
+
+\color{blue} $G = (\{S, A, B, C, D, E, F\}, \{0, 1, ..., 9, (, ), *, +, o, d, e, v, n\}, S, \{S \rightarrow Aeven|Bodd,\\
+A \rightarrow 0|2C|4C|6C|8C|1D|3D|5D|7D|9D|(A*A)|(A*B)|(B*A)|(A+A)|(B+B),\\
+B \rightarrow 1E|3E|5E|7E|9E|2F|4F|6F|8F|(B*B)|(A+B)|(B+A),\\
+C \rightarrow \epsilon|0C|2C|4C|6C|8C|1D|3D|5D|7D|9D,\\
+D \rightarrow 0C|2C|4C|6C|8C|1D|3D|5D|7D|9D,\\
+E \rightarrow \epsilon|1E|3E|5E|7E|9E|0F|2F|4F|6F|8F,\\
+F \rightarrow 1E|3E|5E|7E|9E|0F|2F|4F|6F|8F\})$ \color{black}
+
+%-------------------------------------------------------------------------------
+
+%----------------------------------- Q2 DONE -----------------------------------
+
+\item Define a context-free grammar for the language $L = \{0^n1^m0^m1^n : n, m \in \mathbb{N}\}$.
+
+\color{blue} $G = (\{S, A\}, \{0, 1\}, S, \{S \rightarrow 0S1|A|\epsilon, A \rightarrow 1A0|\epsilon\})$ \color{black}
+
+%-------------------------------------------------------------------------------
+
+%----------------------------------- Q3 DONE -----------------------------------
+
+\item Define a context-free grammar for the language $L = \{uv \in \{0,1\}^* : |u| = |v| \wedge u \neq v^R\}$.
+
+\color{blue} $G = (\{S, A\}, \{0, 1\}, S, \{S \rightarrow 0A1 | 1A0 | 1S1 | 0S0, A \rightarrow 0A0 | 0A1 | 1A0 | 1A1 | \epsilon\})$ \color{black}
+
+%-------------------------------------------------------------------------------
+
+%----------------------------------- Q4 DONE -----------------------------------
+
+\item Let $|x|_a$ be the number of occurrences of the symbol $a$ in the string $x$.
+\begin{itemize}
+    \item Define a context-free grammar for the language $L = \{w \in \{0,1\}^* : |w|_0 = |w|_1\}$.
+    \item Give a formal proof, or at least the key idea(s), of why your grammar generates $L$.
+\end{itemize}
+
+\color{blue}
+    $G = (\{S, A, B\}, \{0, 1\}, S, \{S \rightarrow 0AS | 1BS | \epsilon, A \rightarrow 1 | 0AA, B \rightarrow 0 | 1BB\})$
+
+    \textbf{Proof:}
+    
+    \quad My grammar generates the language from left to right. While in state $S$, which is essentially the "balanced" \# of 1s and 0s, if you add a 1 or 0, it adds a variable that forces the opposite number to be added before you can reach state $S$ again. The key is that state $S$ is the only state in which all variables can be removed leaving only terminals for the language to accept.
+    
+    \quad As for states $A$ and $B$, these states have 2 choices. You can either choose the number that causes the string to get closer to being balanced, or you can add another of the number that appears more than the other number. For the latter option, it adds another variable signifying that another of the less-appearing number is required to reach a "balanced" state. The choice is crucial since we aren't requiring a certain pattern, but rather that the \# of 1s and 0s are "balanced." Until all those variables are removed, state $S$ cannot be variable-free, thus the language will not accept the string.
+\color{black}
+
+%-------------------------------------------------------------------------------
+
+\end{enumerate}
+\end{document}
