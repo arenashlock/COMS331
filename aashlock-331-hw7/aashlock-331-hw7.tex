@@ -1,0 +1,112 @@
+\documentclass[12pt]{article}
+\usepackage{epsf}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usetikzlibrary{automata, positioning, arrows}
+
+\title{aashlock-331-hw7}
+\author{Aren Ashlock}
+\date{March 8, 2024}
+
+\setlength{\oddsidemargin}{-0.25in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\headheight}{0cm}
+\setlength{\headsep}{0cm}
+\setlength{\textheight}{10in}
+\setlength{\textwidth}{7in}
+\setlength{\topskip}{0cm}
+
+\begin{document}
+
+\noindent\textbf{ComS 331 \quad Spring 2024 \quad Name: Aren Ashlock}
+
+\begin{enumerate}
+
+%----------------------------------- Q1 DONE -----------------------------------
+
+\item Consider the language $L = \{a^rb^sc^t : t \leq r \cdot s\}$. Use the pumping lemma to prove that $L$ is not a context-free language.
+
+\color{blue} If $L$ is a context-free language, then $\exists m, \forall |w| \geq m, \exists uvxyz = w, |vy| > 0, |vxy| \leq m, \exists k, uv^kxy^kz \in L$. I'll choose $w = a^mb^mc^{m^2}$. Since $|vxy| \leq m$, then $w$ can span at most two of the runs. Here are a few cases this string could be broken down into...
+
+Case 1: $v = a^i, y = a^j$ with $k = 0$, we get $a^{m-i-j}b^mc^{m^2}$. The lemma definition makes it so that at least either $i$ or $j$ is $\geq 1$, meaning we have at least $a^{m-1}b^mc^{m^2}$. Since $m^2 \leq m^2 - m$ is not true, $w \notin L$. A simlar situation occurs when $v = b^i$, $y = b^j$ with $k = 0$, we get $a^mb^{m-i-j}c^{m^2}$. Since either $i$ or $j$ is $\geq 1$, we have at least $a^mb^{m-1}c^{m^2}$. Since $m^2 \leq m^2 - m$ is not true, $w \notin L$.
+
+Case 2: $v = a^i, y = b^j$ with $k = 0$, we get $a^{m-i}b^{m-j}c^{m^2}$. The lemma definition makes it so that at least either $i$ or $j$ is $\geq 1$ and both are $< m$, meaning $m^2 \leq m^2 -mi - mj + ij$ is not true. Thus, $w \notin L$.
+
+Case 3: $v$ or $y = a^ib^j$ or $b^ia^j$. With $k = 2$, pumping gets us either a string containing $a^ib^ja^ib^j$ or $b^ia^jb^ia^j$, which is not accepted based on the language definition. Therefore, $w \notin L$.
+
+Case 4: $v = c^i, y = c^j$ with $k = 2$, we get $a^mb^mc^{m^2+i+j}$. The lemma definition makes it so that at least either $i$ or $j$ is $\geq 1$, meaning we have at least $a^mb^mc^{m^2+1}$. Since $m^2 + 1 \leq m^2$ is not true, $w \notin L$.
+
+Case 5: $v = b^i, y = c^j$ with $k = 0$, we get $a^mb^{m-i}c^{m^2-j}$. Looking at the language definition, we must satisfy $m^2 - j \leq m^2 - mi$. Reworking it, we get $j \geq mi$. Since we know that $j < m$, this is only satisfied when $i = j = 0$. This is not true because the lemma states that at least either $i$ or $j$ is $\geq 1$. As a result, $w \notin L$.
+
+Since none of these cases work, you cannot pump $w$ meaning $L$ is not a context-free language. \color{black}
+
+%-------------------------------------------------------------------------------
+
+%----------------------------------- Q2 DONE -----------------------------------
+
+\item Consider the language 
+\begin{displaymath}
+    L = \{w \in \{a,b\}^* : \text{the longest run of } a\text{'s in } w \text{ is longer than any run of } b\text{'s in } w\}.
+\end{displaymath}
+For example, $abbbbaabbbaaaaaa \in L$ because the longest run of $b$'s in it has length four, while the longest run of $a$'s has length six. Prove that $L$ is not context-free.
+
+\color{blue} If $L$ is a context-free language, then $\exists m, \forall |w| \geq m, \exists uvxyz = w, |vy| > 0, |vxy| \leq m, \exists k, uv^kxy^kz \in L$. I'll choose $w = b^ma^{m+1}b^m$. Since $|vxy| \leq m$, then $w$ can span at most two of the runs. Here are a few cases this string could be broken down into...
+
+Case 1: $v = b^i, y = b^j$ with $k = 2$, we get $b^{m+i+j}a^{m+1}b^m$ OR $b^ma^{m+1}b^{m+i+j}$. The lemma definition makes it so that at least either $i$ or $j$ is $\geq 1$, meaning we have at least $b^{m+1}a^{m+1}b^m$ OR $b^ma^{m+1}b^{m+1}$. Since the run of $a$'s is not longer than the longest run of $b$'s, $w \notin L$.
+
+Case 2: $v = a^i, y = a^j$ with $k = 0$, we get $b^ma^{m+1-i-j}b^m$. The lemma definition makes it so that at least either $i$ or $j$ is $\geq 1$, meaning we have at least $b^ma^mb^m$. Since the run of $a$'s is not longer than the longest run of $b$'s, $w \notin L$.
+
+Case 3: $v = b^ia^j, y = a^k$ with $k = 0$, we get $b^{m-i}a^{m+1-j-k}b^m$. Since $vxy$ is spanning across two runs, we cannot have $\epsilon$ for either $v$ or $y$ (meaning they both have a length of at least 1). This means we have at least $b^{m-1}a^{m-1}b^m$. Since the run of $a$'s is not longer than the longest run of $b$'s, $w \notin L$.
+
+Case 4: $v = a^i, y = a^jb^k$ with $k = 0$, we get $b^ma^{m+1-i-j}b^{m-k}$. Since $vxy$ is spanning across two runs, we cannot have $\epsilon$ for either $v$ or $y$ (meaning they both have a length of at least 1). This means we have at least $b^ma^{m-1}b^{m-1}$. Since the run of $a$'s is not longer than the longest run of $b$'s, $w \notin L$.
+
+Case 5: $v = b^i, y = a^j$ with $k = 0$, we get $b^{m-i}a^{m+1-j}b^m$. Since $vxy$ is spanning across two runs, we cannot have $\epsilon$ for either $v$ or $y$ (meaning they both have a length of at least 1). This means we have at least $b^{m-1}a^mb^m$. Since the run of $a$'s is not longer than the longest run of $b$'s, $w \notin L$.
+
+Case 6: $v = a^i, y = b^j$ with $k = 0$, we get $b^ma^{m+1-i}b^{m-j}$. Since $vxy$ is spanning across two runs, we cannot have $\epsilon$ for either $v$ or $y$ (meaning they both have a length of at least 1). This means we have at least $b^ma^mb^{m-1}$. Since the run of $a$'s is not longer than the longest run of $b$'s, $w \notin L$.
+
+Since none of these cases work, you cannot pump $w$ meaning $L$ is not a context-free language. \color{black}
+
+%-------------------------------------------------------------------------------
+
+%----------------------------------- Q3 DONE -----------------------------------
+
+\item Define a NPDA for the language $L = \{a^{2n}b^n : n \in \mathbb{N}\}$.
+
+\color{blue} NPDA $M = (\{q_0, q_1, q_2, q_f\}, \{a, b\}, \{A, z\}, \delta, q_0, z, \{q_f\})$\\
+$\delta(q_0, \epsilon, z) = \{(q_f, \epsilon)\}$\\
+$\delta(q_0, a, z) = \{(q_1, Az)\}$\\
+$\delta(q_1, a, A) = \{(q_0, A)\}$\\
+$\delta(q_0, a, A) = \{(q_1, AA)\}$\\
+$\delta(q_0, b, A) = \{(q_2, \epsilon)\}$\\
+$\delta(q_2, b, A) = \{(q_2, \epsilon)\}$\\
+$\delta(q_2, \epsilon, z) = \{(q_f, \epsilon)\}$ \color{black}
+
+%-------------------------------------------------------------------------------
+
+%----------------------------------- Q4 DONE -----------------------------------
+
+\item Define a NPDA for the language $L = \{uv \in \{0,1\}^* : |u| = |v| \wedge u \neq v^R\}$.
+
+\color{blue} NPDA $M = (\{q_0, q_1, q_2, q_f\}, \{0, 1\}, \{A, B, z\}, \delta, q_0, z, \{q_f\})$\\
+$\delta(q_0, 0, z) = \{(q_0, Az)\}$\\
+$\delta(q_0, 0, A) = \{(q_0, AA), (q_1, \epsilon)\}$\\
+$\delta(q_0, 0, B) = \{(q_0, AB), (q_2, \epsilon)\}$\\
+$\delta(q_0, 1, z) = \{(q_0, Bz)\}$\\
+$\delta(q_0, 1, A) = \{(q_0, BA), (q_2, \epsilon)\}$\\
+$\delta(q_0, 1, B) = \{(q_0, BB), (q_1, \epsilon)\}$\\
+$\delta(q_1, 0, A) = \{(q_1, \epsilon)\}$\\
+$\delta(q_1, 1, B) = \{(q_1, \epsilon)\}$\\
+$\delta(q_1, 0, B) = \{(q_2, \epsilon)\}$\\
+$\delta(q_1, 1, A) = \{(q_2, \epsilon)\}$\\
+$\delta(q_2, 0, A) = \{(q_2, \epsilon)\}$\\
+$\delta(q_2, 1, B) = \{(q_2, \epsilon)\}$\\
+$\delta(q_2, 0, B) = \{(q_2, \epsilon)\}$\\
+$\delta(q_2, 1, A) = \{(q_2, \epsilon)\}$\\
+$\delta(q_2, \epsilon, z) = \{(q_f, \epsilon)\}$ \color{black}
+
+%-------------------------------------------------------------------------------
+
+\end{enumerate}
+\end{document}
