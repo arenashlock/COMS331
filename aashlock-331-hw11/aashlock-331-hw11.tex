@@ -1,0 +1,66 @@
+\documentclass[12pt]{article}
+\usepackage{epsf}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usetikzlibrary{automata, positioning, arrows}
+
+\title{aashlock-331-hw11}
+\author{Aren Ashlock}
+\date{April ??, 2024}
+
+\setlength{\oddsidemargin}{-0.25in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\headheight}{0cm}
+\setlength{\headsep}{0cm}
+\setlength{\textheight}{10in}
+\setlength{\textwidth}{7in}
+\setlength{\topskip}{0cm}
+
+\begin{document}
+
+\noindent\textbf{ComS 331 \quad Spring 2024 \quad Name: Aren Ashlock}
+
+\begin{enumerate}
+
+%----------------------------------- Q1 DONE -----------------------------------
+
+\item Use reduction to prove that the language $L = \{\rho(M_1)\rho(M_2) : L(M_1) \cup L(M_2) = \Sigma^*\}$ is not decidable (you may assume that $M_1$ and $M_2$ have the same input alphabet $\Sigma$).
+
+\color{blue}
+    We can reduce the Halting Problem to $L$ by doing the following. Construct $M_1$ such that $L(M_1)$ accepts the input if $M$ halts on $w$ while $M_2$ is constructed such that $L(M_2)$ accepts all inputs.
+
+    If $M$ halts on $w$, then $\rho(M_1)\rho(M_2) \in L$ since $L(M_1) \cup L(M_2) = \Sigma^*$. If $M$ doesn't halt, then $\rho(M_1)\rho(M_2) \notin L$ since $L(M_1) \cup L(M_2) \neq \Sigma^*$.
+
+    This shows a potential way for $L$ to be decided. However, this is a contradiction since we can reduce the Halting Problem to $L$, which means $L$ is not decidable.
+\color{black}
+
+%-------------------------------------------------------------------------------
+
+%----------------------------------- Q2 DONE -----------------------------------
+
+\item Define an unrestricted grammar for the language $\{a^{n^2} : n \in \mathbb{N}\}$.
+
+\color{blue}
+    $G = (\{[, ], S, A, L, R, X\}, \{a\}, S, P)$
+
+    $P = \{
+    S \rightarrow [AL],\\
+    aL \rightarrow La,\\
+    AL \rightarrow LA,\\
+    $$[L \rightarrow [R,\\
+    L] \rightarrow X,\\
+    Ra \rightarrow aR,\\
+    RA \rightarrow aAR,\\
+    R] \rightarrow AAL],\\
+    aX \rightarrow Xa,\\
+    AX \rightarrow Xa,\\
+    $$[X \rightarrow \epsilon
+    \}$
+\color{black}
+
+%-------------------------------------------------------------------------------
+
+\end{enumerate}
+\end{document}
