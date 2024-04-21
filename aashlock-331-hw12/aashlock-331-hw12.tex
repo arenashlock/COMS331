@@ -1,0 +1,47 @@
+\documentclass[12pt]{article}
+\usepackage{epsf}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usetikzlibrary{automata, positioning, arrows}
+
+\title{aashlock-331-hw12}
+\author{Aren Ashlock}
+\date{April ??, 2024}
+
+\setlength{\oddsidemargin}{-0.25in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\headheight}{0cm}
+\setlength{\headsep}{0cm}
+\setlength{\textheight}{10in}
+\setlength{\textwidth}{7in}
+\setlength{\topskip}{0cm}
+
+\begin{document}
+
+\noindent\textbf{ComS 331 \quad Spring 2024 \quad Name: Aren Ashlock}
+
+\begin{enumerate}
+
+%----------------------------------- Q1 NOT DONE -----------------------------------
+
+\item Are the following languages Turing decidable, Turing acceptable but not Turing-decidable, or not even Turing acceptable?
+
+\begin{itemize}
+  \item $L = \{\rho(M)\rho(w) : M \text{ uses a finite number of tape cells when running on input } w\}$.
+  \item $L = \{\rho(M)\rho(w)01^n0 : M \text{ uses at most } n \text{ tape cells when running on input } w\}$.
+\end{itemize}
+
+Here, “using $n$ cells” means that the head of the (deterministic) TM $M$ reaches the $n$-th cell from the left during its computation. Justify your answers clearly: both exercises require careful thinking. Note that this exercise is in a sense relevant to “real computing”, since one could argue that the computers we use in practice have a large but finite memory.
+
+\color{blue}
+    $L$ where $M$ uses a finite number of tape cells when running on input $w$ is \textbf{Turing acceptable, but not Turing-decidable}. First off, it's not a guarantee that $M$ will halt on all $w$, so $L$ cannot be Turing-decidable. However, if it does halt on an input and uses a finite number of tape cells, $L$ can halt. This means that $L$ is Turing acceptable.
+
+    $L$ where $M$ uses at most $n$ tape cells when running on input $w$ is \textbf{not even Turing acceptable}. Like the other $L$ from above, $M$ is not guaranteed to halt on all $w$, so $L$ cannot be Turing-decidable. It also isn't Turing acceptable because $M$ can use at most $n$ tape cells, but still not halt. Therefore, $L$ may not accept everything that in fact uses at most $n$ tape cells.
+\color{black}
+
+%-------------------------------------------------------------------------------
+
+\end{enumerate}
+\end{document}
